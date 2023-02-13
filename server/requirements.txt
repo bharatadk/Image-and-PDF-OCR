@@ -1,0 +1,7 @@
+APScheduler
+easyocr
+Flask
+Flask-Cors
+PyMuPDF
+pyzmq
+ipykernel
