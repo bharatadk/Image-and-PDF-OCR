@@ -5,7 +5,7 @@ import DateTimePicker from "../DateTimePicker/DateTimePicker";
 import DragDropPDF from "./DragDropPDF";
 
 const fileTypes = ["PDF"];
-//const apiUrl = "https://258d-103-186-197-167.in.ngrok.io/";
+//const apiUrl = "https://ocr-backend-dgfv.onrender.com/";
 const apiUrl = " http://127.0.0.1:5000";
 
 export default function PDFUploader() {
