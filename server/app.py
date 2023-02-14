@@ -50,5 +50,5 @@ if __name__ == "__main__":
     scheduler.init_app(app)
     scheduler.add_job(id='job1', func=verify_and_run_schedule, trigger='interval', seconds=60)
     scheduler.start()
-    app.run(host='0.0.0.0' , port=,5111debug=False)
+    app.run(host='0.0.0.0' , port=5111,debug=False)
 
