@@ -4,16 +4,16 @@ from flask import Flask,request
 from flask_cors import CORS,cross_origin
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.schedulers.blocking import BlockingScheduler
+from flask_apscheduler import APScheduler
 from config import mail_settings
 from utils.check_result import check_result
-from multiprocessing import Process
 
-# scheduler = BlockingScheduler()
-# scheduler.configure({'apscheduler.daemon': False})
+# scheduler = BackgroundScheduler()
+
 os.environ["GPU"] = ""
-os.environ["TZ"] = "Asia/Kolkata"
-time.tzset()
+#IST
+# os.environ["TZ"] = "Asia/Kolkata"
+# time.tzset()
 
 # Blueprints
 from routes.image_route import image_bp
@@ -43,16 +43,11 @@ def getTime():
 def getText(id):
     return check_result(request,id)
 
-
-
 if __name__ == "__main__":
-    from schedule.schedule import run_scheduled_tasks
+    from schedule.schedule import verify_and_run_schedule
     # scheduler.add_job(run_scheduled_tasks, 'interval', seconds=60)
-    @app.before_first_request
-    def setup_scheduler():
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(run_scheduled_tasks,'interval', seconds=60)
-        scheduler.start()
-    p = Process(target=app.run)
-    p.start()
-    # app.run(debug=True)
+    scheduler = APScheduler()
+    scheduler.init_app(app)
+    scheduler.add_job(id='job1', func=verify_and_run_schedule, trigger='interval', seconds=60)
+    scheduler.start()
+    app.run(host='0.0.0.0' , port=5000,debug=False)
