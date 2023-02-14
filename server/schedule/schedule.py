@@ -71,5 +71,8 @@ def verify_and_run_schedule():
 
 		if table_exists and table_not_empty:
 			run_scheduled_tasks()
+			return
+		print("⏰ Table doesn't exist or no any tasks to run ")
+		return
 	except Exception as e:
 		print("🐛 in verify_and_run_schedule",e)

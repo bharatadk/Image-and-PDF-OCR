@@ -5,8 +5,8 @@ import DateTimePicker from "../DateTimePicker/DateTimePicker";
 import DragDropFiles from "./DragDropFiles";
 
 const fileTypes = ["PNG", "JPG", "JPEG"];
-const apiUrl = "http://bharat7243.pythonanywhere.com";
-//const apiUrl = " http://127.0.0.1:5000";
+//const apiUrl = "https://258d-103-186-197-167.in.ngrok.io/";
+const apiUrl = " http://127.0.0.1:5000";
 
 export default function Uploader() {
     const time24 = () => {
