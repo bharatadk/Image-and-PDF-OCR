@@ -37,11 +37,12 @@ def run_scheduled_tasks():
 					SET status = 'finished', result = ?
 					WHERE task_id = ?
 				''', (result, task_id))
-				cursor.close()
-				conn.commit()
-				conn.close()
-	except:
-		print("🐛 in run_scheduled_tasks")
+		conn.commit()
+		conn.close()
+		cursor.close()
+
+	except Exception as e:
+		print("🐛 in run_scheduled_tasks",e)
 	return
 
 # check if database + table exists + len(rows)>0
@@ -51,7 +52,7 @@ def verify_and_run_schedule():
 		table_name="tasks"
 		if not os.path.exists(database_name):
 			print("Database doesnot exist")
-			return False
+			return 
 
 		conn = sqlite3.connect(database_name)
 		cursor = conn.cursor()
@@ -65,14 +66,18 @@ def verify_and_run_schedule():
 			table_not_empty = rows[0] > 0
 		else:
 			table_not_empty = False
+			print("⏰ Table doesn't exist or no any tasks to run ")
+			cursor.close()
+			conn.close()
+			return
 
-		cursor.close()
+
+
 		conn.close()
-
+		cursor.close()
 		if table_exists and table_not_empty:
 			run_scheduled_tasks()
 			return
-		print("⏰ Table doesn't exist or no any tasks to run ")
 		return
 	except Exception as e:
 		print("🐛 in verify_and_run_schedule",e)

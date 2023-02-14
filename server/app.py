@@ -4,14 +4,12 @@ from flask import Flask,request
 from flask_cors import CORS,cross_origin
 from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
-from flask_apscheduler import APScheduler
 from config import mail_settings
 from utils.check_result import check_result
 
-# scheduler = BackgroundScheduler()
-
 os.environ["GPU"] = ""
-#IST
+
+#Indian Standard Time
 # os.environ["TZ"] = "Asia/Kolkata"
 # time.tzset()
 
@@ -45,9 +43,7 @@ def getText(id):
 
 if __name__ == "__main__":
     from schedule.schedule import verify_and_run_schedule
-    # scheduler.add_job(run_scheduled_tasks, 'interval', seconds=60)
-    scheduler = APScheduler()
-    scheduler.init_app(app)
-    scheduler.add_job(id='job1', func=verify_and_run_schedule, trigger='interval', seconds=60)
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(verify_and_run_schedule, trigger='interval', seconds=60)
     scheduler.start()
     app.run(host='0.0.0.0' , port=5000,debug=False)

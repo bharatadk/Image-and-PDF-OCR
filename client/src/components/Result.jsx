@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 const Result = () => {
     const [message, setMessage] = useState(
-        localStorage.getItem("result_ocr") | "p"
+        sessionStorage.getItem("result_ocr") | "p"
     );
     const handleChange = (event) => {
         setMessage(event.target.value);
     };
     useEffect(() => {
         // CHECK IF THERE IS A LOGGED IN USER FROM PREVIOUS SESSIONS
-        const loggedUserJSON = window.localStorage.getItem("result_ocr");
+        const loggedUserJSON = window.sessionStorage.getItem("result_ocr");
         if (loggedUserJSON) {
             setMessage(loggedUserJSON);
         }
@@ -30,7 +30,7 @@ const Result = () => {
                     padding: "10px",
                 }}
             ></textarea>
-            {localStorage.getItem("isOver5") == "yes" && (
+            {sessionStorage.getItem("isOver5") == "yes" && (
                 <h3 style={{ color: "orangered", marginBottom: "0" }}>
                     ⚠️ We only show first 5 pages of PDF in this version
                 </h3>

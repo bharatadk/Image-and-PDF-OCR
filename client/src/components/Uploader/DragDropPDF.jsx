@@ -47,8 +47,8 @@ const DragDropPDF = ({ apiUrl, startDate, startTime }) => {
                 );
 
                 const data = await upload.data;
-                localStorage.setItem("result_ocr", data.text);
-                localStorage.setItem("isOver5", data.isOver5);
+                sessionStorage.setItem("result_ocr", data.text);
+                sessionStorage.setItem("isOver5", data.isOver5);
 
                 navigate("/result");
             } catch (err) {
