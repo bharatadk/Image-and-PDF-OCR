@@ -6,3 +6,4 @@ PyMuPDF
 pyzmq
 ipykernel
 gunicorn
+flask_apscheduler
