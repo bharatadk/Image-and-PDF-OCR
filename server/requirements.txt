@@ -5,3 +5,4 @@ Flask-Cors
 PyMuPDF
 pyzmq
 ipykernel
+gunicorn
